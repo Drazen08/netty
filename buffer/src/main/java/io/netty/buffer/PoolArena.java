@@ -24,11 +24,13 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static io.netty.util.internal.ObjectUtil.checkPositiveOrZero;
 import static java.lang.Math.max;
 
+// netty的内存池实现类
 abstract class PoolArena<T> implements PoolArenaMetric {
     static final boolean HAS_UNSAFE = PlatformDependent.hasUnsafe();
 
@@ -48,8 +50,10 @@ abstract class PoolArena<T> implements PoolArenaMetric {
     final int chunkSize;
     final int subpageOverflowMask;
     final int numSmallSubpagePools;
+
     final int directMemoryCacheAlignment;
     final int directMemoryCacheAlignmentMask;
+
     private final PoolSubpage<T>[] tinySubpagePools;
     private final PoolSubpage<T>[] smallSubpagePools;
 
